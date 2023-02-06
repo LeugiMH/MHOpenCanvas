@@ -1,0 +1,35 @@
+*{
+    font-family: 'Poppins' !important;
+    font-weight: 300 !important;
+}
+canvas{
+    width: 100%;
+    border: 2px solid black;
+}/*
+canvas:hover{
+    cursor: none;
+}
+.cursor{
+    border: 1px solid black;
+    background-color: transparent;
+    user-select: none;
+    display: none;
+}*/
+#canvas-box{
+    grid-area: function;
+}
+#functions-box{
+    grid-area: canvas;
+}
+body{
+    height: 100vh;
+}
+.box{
+    height: 100%;
+    background-color: white;
+    display: grid;
+    grid-template-areas: 
+    'function'
+    'canvas';
+    grid-template-rows:  auto auto;
+}
