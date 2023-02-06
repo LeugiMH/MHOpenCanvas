@@ -120,7 +120,10 @@ function desenhar (move){
         
     }
     
-    console.log(objDesenho);
+    /*Debug Desenho
+    *console.log(objDesenho);
+    */
+    //Emit Drawn info
     socket.emit('desenhar', objDesenho);
 
     //test mode mode 
@@ -152,6 +155,7 @@ function sombra(mouse)
     
 };*/
 
+//Get older draws, and draws it again
 socket.on('desenhosAntigos', function(obj) {
     for(pincelada of obj)
     {
@@ -171,6 +175,7 @@ socket.on('desenhosAntigos', function(obj) {
     }
 });
 
+//Draws emitting drawns
 socket.on('desenho', function(obj) {
     if(obj.borracha)
     {
@@ -184,6 +189,7 @@ socket.on('desenho', function(obj) {
     }
 });
 
+//Draws on canvas function
 function desenho(x, y, color, size, radius) 
 {
     if(radius)

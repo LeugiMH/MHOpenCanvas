@@ -8,6 +8,7 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {});
 
+//Port
 const port = 3000;
 
 const public = __dirname + "/public/";
@@ -32,7 +33,7 @@ app.post("/Quadro", (req, res) => {
     //clear old room cookies
     res.clearCookie(roomName);
 
-    //Definindo Cookies
+    //Define roomname cookie
     res.cookie("roomName",roomName);
 
     //redirect to Quadro.html
@@ -50,9 +51,8 @@ let desenhosAntigos = [];
 
 /* SOCKET.IO */
 io.on("connection", (socket) => {
-    console.log("Usuário conectado!");
     
-    console.log(desenhosAntigos);
+    //console.log(desenhosAntigos);
     var roomName; 
        
     
@@ -70,7 +70,7 @@ io.on("connection", (socket) => {
         //Return room Connection
         socket.in(name).emit("conn.Room",'Alguém se conectou à sala');
         
-        console.log("Conn. Sala " + roomName);
+        console.log("New connection in Room: " + roomName);
 
         io.emit('desenhosAntigos', desenhosAntigos);
     });
@@ -79,17 +79,17 @@ io.on("connection", (socket) => {
     //Receber desenhos
     socket.on('desenhar', (desenho) => {
         desenhosAntigos.push(desenho);
-        console.log(desenho);
+
+        //console.log(desenho);
         //send drawns
         io.in(roomName).emit('desenho', desenho);
     });
 
     socket.on("disconnect", () => {
-        console.log("Usuário desconectado!");
+        console.log("disconnection in Room: " + roomName);
     });
 });
 /* ---SOCKET.IO--- */
-
-
-
-httpServer.listen(port);
+httpServer.listen(port, () => {
+    console.log("Listening port: " + port);
+});
